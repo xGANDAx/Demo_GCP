@@ -14,3 +14,8 @@ variable "zone" {
   default = "us-east1-b"
   description = "The zone where the instance is goind to be created"
 }
+
+variable "project" {
+  type = string
+  description = "ID of the Google Cloud Project"
+}
