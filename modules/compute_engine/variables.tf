@@ -19,3 +19,13 @@ variable "project" {
   type = string
   description = "ID of the Google Cloud Project"
 }
+
+variable "network" {
+  type = string
+  description = "ID of the Google Virtual Network"
+}
+
+variable "subnetwork" {
+  type = string
+  description = "ID of the Google Virtual SubNetwork"
+}
