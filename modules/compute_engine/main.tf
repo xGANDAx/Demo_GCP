@@ -14,6 +14,7 @@ resource "google_compute_instance" "example_instance" {
   }
 
   network_interface {
-    network = "default"
+    network = var.network
+    subnetwork = var.subnetwork
   }
 }
