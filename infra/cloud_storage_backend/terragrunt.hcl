@@ -5,9 +5,9 @@ include {
 remote_state {
   backend = "gcs"
   config = {
-    bucket         = "x_ganda_x_backend_terraform"
-    prefix         = "terraform/backend"
-    project        = get_env("PROJECT_ID", "default_project")
+    bucket  = "x_ganda_x_backend_terraform"
+    prefix  = "terraform/backend"
+    project = get_env("PROJECT_ID", "default_project")
   }
 }
 

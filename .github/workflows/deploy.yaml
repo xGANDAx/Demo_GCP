@@ -1,0 +1,71 @@
+name: Deploy
+
+on:
+  push:
+    inputs:
+      action:
+        description: Select the action to perform.
+        required: true
+        type: choice
+        options:
+          - plan
+          - apply
+          - destroy
+
+env:
+  tf_version: 1.9.5
+  tg_version: 0.77.0
+  workdir: infra
+  PROJECT_ID: ${{ secrets.PROJECT_ID }}
+
+permissions:
+  actions: write
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    environment: Main
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: TF Check
+        if: inputs.environment == 'plan'
+        uses: gruntwork-io/terragrunt-action@v2
+        with:
+          tf_version: ${{ env.tf_version }}
+          tg_version: ${{ env.tg_version }}
+          tg_dir: ${{ env.workdir }}
+          tg_command: hclfmt --check
+
+      - name: GCP Auth
+        uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: '${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}'
+
+      - name: TF Plan
+        if: inputs.environment == 'plan'
+        uses: gruntwork-io/terragrunt-action@v2
+        with:
+          tf_version: ${{ env.tf_version }}
+          tg_version: ${{ env.tg_version }}
+          tg_dir: ${{ env.workdir }}
+          tg_command: run-all plan
+
+      - name: TF Apply
+        if: inputs.environment == 'apply'
+        uses: gruntwork-io/terragrunt-action@v2
+        with:
+          tf_version: ${{ env.tf_version }}
+          tg_version: ${{ env.tg_version }}
+          tg_dir: ${{ env.workdir }}
+          tg_command: run-all apply --auto-approve
+
+      - name: TF Destroy
+        if: inputs.environment == 'destroy'
+        uses: gruntwork-io/terragrunt-action@v2
+        with:
+          tf_version: ${{ env.tf_version }}
+          tg_version: ${{ env.tg_version }}
+          tg_dir: ${{ env.workdir }}
+          tg_command: run-all destroy --terragrunt-exclude-dir cloud_storage_backend
