@@ -22,7 +22,7 @@ permissions:
   actions: write
 
 jobs:
-  checks:
+  deploy:
     runs-on: ubuntu-latest
     environment: Main
     steps:
@@ -30,7 +30,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: TF Check
-        if: inputs.environment == 'plan'
+        if: inputs.action == 'plan'
         uses: gruntwork-io/terragrunt-action@v2
         with:
           tf_version: ${{ env.tf_version }}
@@ -44,7 +44,7 @@ jobs:
           credentials_json: '${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}'
 
       - name: TF Plan
-        if: inputs.environment == 'plan'
+        if: inputs.action == 'plan'
         uses: gruntwork-io/terragrunt-action@v2
         with:
           tf_version: ${{ env.tf_version }}
@@ -53,7 +53,7 @@ jobs:
           tg_command: run-all plan
 
       - name: TF Apply
-        if: inputs.environment == 'apply'
+        if: inputs.action == 'apply'
         uses: gruntwork-io/terragrunt-action@v2
         with:
           tf_version: ${{ env.tf_version }}
@@ -62,7 +62,7 @@ jobs:
           tg_command: run-all apply --auto-approve
 
       - name: TF Destroy
-        if: inputs.environment == 'destroy'
+        if: inputs.action == 'destroy'
         uses: gruntwork-io/terragrunt-action@v2
         with:
           tf_version: ${{ env.tf_version }}
