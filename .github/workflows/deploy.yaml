@@ -17,6 +17,8 @@ env:
   tg_version: 0.77.0
   workdir: infra
   PROJECT_ID: ${{ secrets.PROJECT_ID }}
+  GOOGLE_BILLING_PROJECT: ${{ secrets.PROJECT_ID }}
+  BILLING_ACCOUNT: ${{ secrets.BILLING_ACCOUNT }}
 
 permissions:
   actions: write
