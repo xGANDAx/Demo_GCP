@@ -9,6 +9,7 @@ dependency "virtual_network" {
     subnet_id  = "subnet-123456"
   }
 }
+
 remote_state {
   backend = "gcs"
   config = {

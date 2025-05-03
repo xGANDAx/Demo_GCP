@@ -68,4 +68,4 @@ jobs:
           tf_version: ${{ env.tf_version }}
           tg_version: ${{ env.tg_version }}
           tg_dir: ${{ env.workdir }}
-          tg_command: run-all destroy --terragrunt-exclude-dir cloud_storage_backend
+          tg_command: run-all destroy --terragrunt-exclude-dir cloud_storage_backend --terragrunt-exclude-dir google_cloud_budget
