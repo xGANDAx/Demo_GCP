@@ -12,7 +12,7 @@ env:
   workdir: infra
 
 jobs:
-  deploy:
+  checks:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
