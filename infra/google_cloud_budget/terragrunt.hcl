@@ -13,5 +13,5 @@ terraform {
 
 inputs = {
   billing_account = get_env("BILLING_ACCOUNT", "default_billing_account")
-  amount = 1
+  amount          = 1
 }
