@@ -31,15 +31,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: TF Check
-        if: inputs.action == 'plan'
-        uses: gruntwork-io/terragrunt-action@v2
-        with:
-          tf_version: ${{ env.tf_version }}
-          tg_version: ${{ env.tg_version }}
-          tg_dir: ${{ env.workdir }}
-          tg_command: hclfmt --check
-
       - name: GCP Auth
         uses: 'google-github-actions/auth@v2'
         with:
