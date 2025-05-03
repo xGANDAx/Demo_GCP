@@ -17,6 +17,8 @@ env:
   tg_version: 0.77.0
   workdir: infra
   PROJECT_ID: ${{ secrets.PROJECT_ID }}
+  GOOGLE_BILLING_PROJECT: ${{ secrets.PROJECT_ID }}
+  BILLING_ACCOUNT: ${{ secrets.BILLING_ACCOUNT }}
 
 permissions:
   actions: write
@@ -28,15 +30,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: TF Check
-        if: inputs.action == 'plan'
-        uses: gruntwork-io/terragrunt-action@v2
-        with:
-          tf_version: ${{ env.tf_version }}
-          tg_version: ${{ env.tg_version }}
-          tg_dir: ${{ env.workdir }}
-          tg_command: hclfmt --check
 
       - name: GCP Auth
         uses: 'google-github-actions/auth@v2'

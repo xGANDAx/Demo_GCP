@@ -1,0 +1,27 @@
+name: Checks
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize]
+
+env:
+  tf_version: 1.9.5
+  tg_version: 0.77.0
+  workdir: infra
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: TF Check
+        uses: gruntwork-io/terragrunt-action@v2
+        with:
+          tf_version: ${{ env.tf_version }}
+          tg_version: ${{ env.tg_version }}
+          tg_dir: ${{ env.workdir }}
+          tg_command: hclfmt --check
