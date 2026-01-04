@@ -1,0 +1,14 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: Demo_GCP
+  title: Demo GCP
+  description: Infrastructure created in GCP
+  annotations:
+    github.com/project-slug: xGANDAx/Demo_GCP
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: infrastructure
+  owner: platform-team
+  lifecycle: production
+  system: cloud-platform
